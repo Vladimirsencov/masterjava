@@ -1,4 +1,6 @@
-# Многопоточность. Веб сервисы.
+# Многопоточность. Веб сервисы
+## <a href="http://javawebinar.ru/masterjava">Регистрация на проект</a>
+
 ### _Разработка полнофункционального многомодульного Maven проекта_
 - веб приложение (Tomcat, JSP, jQuery)
 - многопоточный почтовый сервиса (JavaMail, java.util.concurrent.*) и вспомогательные модули
@@ -8,14 +10,21 @@
 ### Требование к участникам
 Опыт программирования на Java. Базовые знания Maven.
 
-## Необходимое на курсе ПО
+## Необходимое ПО
 -  <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">JDK8</a>
 -  <a href="http://git-scm.com/downloads">Git</a>
 -  <a href="http://www.jetbrains.com/idea/download/index.html">IntelliJ IDEA</a>
 
 > Выбирать Ultimate, 30 days trial (работа с JavaScript, Tomcat, JSP). Учебный ключ к Ultimate выдается на первом занятии.
 
-## Структура памяти: куча, стек, регистры, константы
+# Первое занятие: многопоточность.
+
+## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 1. <a href="https://www.youtube.com/watch?v=whONxvrM2Fc">Вступление. Многопоточность и паралельность.</a>
+![Concurrent vs Parallel](https://joearms.github.io/images/con_and_par.jpg)
+
+## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 2. <a href="https://www.youtube.com/watch?v=qpV0KRadPj8">Структура памяти Java. Ленивая инициализация.</a>
+
+### Структура памяти: куча, стек, permanent/metaspace
   - <a href="http://www.slideshare.net/kslisenko/jvm-35760825">JVM изнутри - оптимизация и профилирование</a>.
   - <a href="http://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap#24171266">Stack and Heap</a>
   - Дополнительно:
@@ -24,20 +33,29 @@
     - <a href="http://www.javaspecialist.ru/2011/04/java-thread-stack.html">Java thread stack </a>
     - <a href="http://habrahabr.ru/post/134102/">Размер Java объектов</a>
 
-## Ленивая инициализация
+### Ленивая инициализация
+- <a href="https://habrahabr.ru/post/27108/">Реализация Singleton в JAVA</a>
 - <a href="https://ru.wikipedia.org/wiki/Double_checked_locking">Double checked locking</a>
 - <a href="https://en.wikipedia.org/wiki/Initialization-on-demand_holder_idiom">Initialization-on-demand holder idiom</a>
 
-## Многопоточность
-![Concurrent vs Parallel](https://joearms.github.io/images/con_and_par.jpg)
+## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 3. <a href="https://www.youtube.com/watch?v=8bFF-5r_Kig">Реализация многопоточности в Java</a>
+- <a href="https://ru.wikipedia.org/wiki/Параллелизм_в_Java">Параллелизм в Java</a>
 - <a href="https://ru.wikipedia.org/wiki/Монитор_(синхронизация)">Монитор (синхронизация)</a>
 - <a href="https://en.wikipedia.org/wiki/Compare-and-swap">Compare-and-swap</a>
 - <a href="http://www.javaspecialist.ru/2011/06/java-memory-model.html">Java Memory Model</a>
 - <a href="http://www.skipy.ru/technics/synchronization.html">Синхронизация потоков</a>
 - <a href="https://habrahabr.ru/company/luxoft/blog/157273">Обзор java.util.concurrent.*</a>
+- <a href="https://habrahabr.ru/post/132884/">Как работает ConcurrentHashMap</a>
+- <a href="https://habrahabr.ru/post/277669/"> Справочник по синхронизаторам java.util.concurrent.*</a>
 - <a href="http://articles.javatalks.ru/articles/17">Использование ThreadLocal переменных</a>
+- <a href="https://www.youtube.com/watch?v=8piqauDj2yo">Николай Алименков — Прикладная многопоточность</a>
+- <a href="http://stackoverflow.com/questions/20163056/in-java-can-thread-switching-happen-in-the-synchronized-block">Can thread switching happen in the synchronized block?</a>
 
-#### Основы, доп. материалы
+## ![video](https://cloud.githubusercontent.com/assets/13649199/13672715/06dbc6ce-e6e7-11e5-81a9-04fbddb9e488.png) 4. <a href="https://www.youtube.com/watch?v=AEhIh2qd-FM">Реализация многопоточной отправки писем. Execution Fremawork</a>
+
+----------------------------
+
+### Ресурсы (основы)
 - Intuit, <a href="http://www.intuit.ru/studies/courses/16/16/lecture/27127">Потоки выполнения. Синхронизация</a>
 - Алексей Владыкин, <a href="https://www.youtube.com/watch?v=zxZ0BXlTys0&list=PLlb7e2G7aSpRSBWi5jbGjIe-v_CjRO_Ug">Основы многопоточность в Java</a>
 - Виталий Чибриков, <a href="https://www.youtube.com/watch?v=dLDhB6SRXzw&list=PLrCZzMib1e9qkzxEuU_huxtSAxrW1t9NZ">Java. Многопоточность</a>
@@ -46,7 +64,8 @@
 - Головач, курс <a href="https://www.youtube.com/playlist?list=PLoij6udfBncgVRq487Me6yQa1kqtxobZS">Java Multithreading</a>
 
 ---
-# Вступительное задание:
+# ![hw](https://cloud.githubusercontent.com/assets/13649199/13672719/09593080-e6e7-11e5-81d1-5cb629c438ca.png) Вступительное задание
+
 Вычекать этот проект:
 ```git clone  https://github.com/JavaOPs/masterjava.git```
 
