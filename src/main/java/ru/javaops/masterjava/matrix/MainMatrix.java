@@ -14,9 +14,11 @@ public class MainMatrix {
         final int[][] matrixB = new int[MATRIX_SIZE][MATRIX_SIZE];
 
         long start = System.currentTimeMillis();
-        final int[][] matrixC =  MatrixUtil.singleThreadMultiply(matrixA, matrixB);
+        int[][] matrixC =  MatrixUtil.singleThreadMultiply(matrixA, matrixB);
         System.out.println("Single thread multiplication time, sec: " + (System.currentTimeMillis() - start)/1000.);
-
+        start = System.currentTimeMillis();
+        matrixC =  MatrixUtil.singleThreadMultiplyWithOptimization(matrixA, matrixB);
+        System.out.println("Single thread multiplication time, sec: " + (System.currentTimeMillis() - start)/1000.);
         // TODO implement parallel multiplication matrixA*matrixB
         // TODO compare wih matrixC;
     }
