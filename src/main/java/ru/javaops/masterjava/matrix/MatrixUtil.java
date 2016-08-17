@@ -1,17 +1,21 @@
 package ru.javaops.masterjava.matrix;
 
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import static java.lang.Runtime.getRuntime;
 
 /**
  * gkislin
  * 03.07.2016
  */
-public class MatrixUtil {
+final public class MatrixUtil {
     private MatrixUtil() {
     }
 
-    public static int[][] singleThreadMultiply(int[][] matrixA, int[][] matrixB) {
+    public static int[][] singleThreadMultiply(final int[][] matrixA, final int[][] matrixB) {
         if (matrixA.length != matrixB[0].length) {
             throw new IllegalArgumentException();
         }
@@ -25,7 +29,8 @@ public class MatrixUtil {
             for (int j = 0; j < matrixBColumns; j++) {
                 int sum = 0;
                 for (int k = 0; k < matrixBRows; k++) {
-                    sum += matrixA[i][k] * matrixB[k][j];
+                    sum += matrixA[i][k]
+                            * matrixB[k][j];
                 }
                 matrixC[i][j] = sum;
             }
@@ -57,17 +62,18 @@ public class MatrixUtil {
     }
 
     public static int[][] multiThreadMultiply(int[][] matrixA, int[][] matrixB) {
-        if (matrixA.length != matrixB[0].length) throw new IllegalArgumentException();
+        if (matrixA.length != matrixB[0].length) {
+            throw new IllegalArgumentException();
+        }
         final int matrixARows = matrixA.length;
         final int matrixBColumns = matrixB[0].length;
-        final int matrixBRows = matrixB.length;
         final int matrixC[][] = new int[matrixARows][matrixBColumns];
 
         if (matrixB[0].length < getRuntime().availableProcessors()) {
             return singleThreadMultiplyWithOptimization(matrixA, matrixB);
         }
 
-        Thread[] threads = null;
+        Thread[] threads;
 
         if (matrixB[0].length < getRuntime().availableProcessors() * 4) {
             {
@@ -81,15 +87,15 @@ public class MatrixUtil {
             if (matrixB[0].length % (getRuntime().availableProcessors() * 4) == 0) {
                 threads = new Thread[getRuntime().availableProcessors() * 4];
             } else {
-                threads = new Thread[getRuntime().availableProcessors() * 4 + 1];
+                threads = new Thread[(getRuntime().availableProcessors() * 4) + 1];
             }
         }
 
-
+        final Map<Integer, Map<Integer, Integer>> indexes = getIndexes(threads, matrixB);
 
         for (int i = 0; i < threads.length; i++) {
             final int j = i;
-            threads[i] = new Thread(() -> matrixMultiply(matrixA, matrixB, matrixC, j, 1));
+            threads[j] = new Thread(() -> matrixMultiply(matrixA, matrixB, matrixC, indexes.get(j).keySet().iterator().next(), indexes.get(j).values().iterator().next()));
             threads[i].start();
         }
 
@@ -106,11 +112,14 @@ public class MatrixUtil {
 
     }
 
-    private static void matrixMultiply(int[][] matrixA, int[][] matrixB, int[][] matrixRes, int startIndex, int endIndex) {
-        if (matrixA.length != matrixB[0].length) throw new IllegalArgumentException();
+    private static void matrixMultiply(final int[][] matrixA, final int[][] matrixB, final int[][] matrixRes, final int startIndex, final int endIndex) {
+        if (matrixA.length != matrixB[0].length) {
+            throw new IllegalArgumentException();
+        }
+        System.out.println(startIndex + " " + endIndex);
         final int matrixARows = matrixA.length;
         final int matrixBRows = matrixB.length;
-        final int buffer[] = new int[matrixBRows];
+        final int[] buffer = new int[matrixBRows];
 
         for (int j = startIndex; j < endIndex; j++) {
             for (int q = 0; q < matrixBRows; q++) {
@@ -125,6 +134,25 @@ public class MatrixUtil {
             }
         }
 
+    }
+
+    private static Map<Integer, Map<Integer, Integer>> getIndexes(Thread[] threads, int[][] matrix) {
+        final Map<Integer, Map<Integer, Integer>> map = new HashMap<>();
+        int matrixSize = matrix[0].length;
+        int poolSize = threads.length;
+        if (matrixSize % poolSize == 0) {
+            for (int i = 0; i < poolSize; i++) {
+                map.put(i, Collections.singletonMap(matrixSize / poolSize * i, matrixSize / poolSize * (i + 1)));
+            }
+        } else {
+            int lastIndex = 0;
+            for (int i = 0; i < poolSize - 1; i++) {
+                lastIndex = matrixSize / poolSize * (i + 1);
+                map.put(i, Collections.singletonMap(matrixSize / poolSize * i, lastIndex));
+            }
+            map.put(poolSize - 1, Collections.singletonMap(lastIndex, matrixSize));
+        }
+        return map;
     }
 
 }
