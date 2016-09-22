@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.lang.Math.*;
 import static java.lang.Runtime.getRuntime;
 
 /**
@@ -153,6 +154,32 @@ final public class MatrixUtil {
             map.put(poolSize - 1, Collections.singletonMap(lastIndex, matrixSize));
         }
         return map;
+    }
+
+    public static int[][] shtrassenMatrixMultiply(int [][] matrixA, int [][] matrixB){
+        if (matrixA.length != matrixB[0].length) {
+            throw new IllegalArgumentException();
+        }
+        int [][][] square = completeToSquare(matrixA,matrixB);
+        int [][]squareA = square[0];
+        int [][]squareB = square[1];
+        //int result = new [int ]
+        return null;
+    }
+
+
+     static int[][][] completeToSquare(int[][]matrixA, int[][]matrixB){
+        int maxLength = max(matrixA.length,max(matrixA[0].length,max(matrixB.length,matrixB[0].length)));
+        int completeToPow2 = (int)ceil(pow(2.0, ceil(log(maxLength)/log(2))));
+        int[][][] result = new int[2][completeToPow2][completeToPow2];
+
+            for (int i = 0; i < matrixA.length; i++) {
+                System.arraycopy(matrixA[i],0,result[0][i],0,matrixA[i].length);
+            }
+            for (int i = 0; i < matrixB.length; i++) {
+            System.arraycopy(matrixB[i],0,result[1][i],0,matrixB[i].length);
+            }
+        return result;
     }
 
 }

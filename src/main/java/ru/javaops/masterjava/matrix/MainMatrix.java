@@ -8,7 +8,7 @@ import java.util.Arrays;
  */
 public class MainMatrix {
     // Multiplex matrix
-    private static final int MATRIX_SIZE = 2500;
+    private static final int MATRIX_SIZE = 1000;
     private static final int THREAD_NUMBER = 10;
 
     public static void main(String[] args) {
@@ -25,15 +25,15 @@ public class MainMatrix {
         final int[][] matrixB = new int[MATRIX_SIZE][MATRIX_SIZE];
 
         long start = System.currentTimeMillis();
-        //int[][] matrixC =  MatrixUtil.singleThreadMultiply(matrixA, matrixB);
+        int[][] matrixC =  MatrixUtil.singleThreadMultiply(matrixA, matrixB);
         System.out.println("Single thread multiplication time, sec: " + (System.currentTimeMillis() - start)/1000.);
         start = System.currentTimeMillis();
-        //matrixC =  MatrixUtil.singleThreadMultiplyWithOptimization(matrixA, matrixB);
+        matrixC =  MatrixUtil.singleThreadMultiplyWithOptimization(matrixA, matrixB);
         System.out.println("Single thread multiplicationWithOptimization time, sec: " + (System.currentTimeMillis() - start)/1000.);
 
-       // matrixC=MatrixUtil.multiThreadMultiply(matrixA, matrixB);
+        matrixC=MatrixUtil.multiThreadMultiply(matrixA, matrixB);
         System.out.println("Multi thread multiplication time, sec: " + (System.currentTimeMillis() - start)/1000.);
-        // TODO compare wih matrixC;
+        // TODO compare with matrixC;
 
 
     }

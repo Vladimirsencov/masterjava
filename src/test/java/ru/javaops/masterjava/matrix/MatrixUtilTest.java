@@ -7,8 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.ranges.Range;
 
+import java.util.Arrays;
 import java.util.Random;
 
+import static java.lang.Math.*;
 import static org.junit.Assert.*;
 
 /**
@@ -59,4 +61,14 @@ public class MatrixUtilTest {
         }
     }
 
+    @Test
+    public void compliteSquareTest(){
+        Assert.assertEquals(5, max(2,max(3,max(4,5))));
+        Assert.assertEquals(4, (int)ceil(pow(2.0, ceil(log(3)/log(2)))));
+        int A [][] = {{1,2,2},{5,4 ,3}};
+        int B [][] =  {{1,2,2},{5,4 ,3}};
+        int[][][] res = MatrixUtil.completeToSquare(A,B);
+        System.out.println(Arrays.deepToString(res));
+        Assert.assertEquals(res[0].length, 4);
+    }
 }
